@@ -38,8 +38,8 @@ module.exports = {
         if(!isAuthenticated){
             return res.status(403).send('incorrect password')
         }
-
-        req.session.user = {isAdmin: user.is_admin, username: user.username, password: user.password}
+        
+        req.session.user = {isAdmin: user.is_admin, username: user.username, password: user.password, id: user.id}
         res.status(200).send(req.session.user)
 
     },

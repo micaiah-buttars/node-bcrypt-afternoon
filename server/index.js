@@ -4,7 +4,8 @@ const massive = require('massive')
 require('dotenv').config()
 
 const ac = require('./controllers/authController')
-const treasureController = require('./controllers/treasureController')
+const tc = require('./controllers/treasureController')
+const auth = require('./middleware/authMiddleware')
 
 
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env
@@ -30,8 +31,10 @@ app.post('/auth/register', ac.register)
 app.post('/auth/login', ac.login)
 app.get('/auth/logout', ac.logout)
 
-app.get('/api/treasure/dragon', treasureController.dragonTreasure)
-app.get('/api/treasure/user', treasureController.getUserTreasure)
+app.get('/api/treasure/dragon', tc.dragonTreasure)
+app.get('/api/treasure/user', auth.usersOnly, tc.getUserTreasure)
+app.post('/api/treasure/user', auth.usersOnly, tc.addUserTreasure)
+app.get('/api/treasure/all', auth.adminsOnly, tc.getAllTreasure)
 
 
 
