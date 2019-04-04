@@ -24,6 +24,10 @@ app.use(session({
 }))
 
 app.post('/auth/register', ac.register)
+app.post('/auth/login', ac.login)
+app.get('/auth/logout', ac.logout)
+
+
 
 
 
